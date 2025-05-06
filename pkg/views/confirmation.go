@@ -21,10 +21,12 @@ import (
 func ConfirmElevation() (bool, error) {
 	var confirm bool
 
-	err := huh.NewConfirm().
+	err := huh.NewSelect[bool]().
 		Title("Are you sure to elevate the user to admin role?").
-		Affirmative("Yes").
-		Negative("No").
+		Options(
+			huh.NewOption("Yes", true),
+			huh.NewOption("No", false),
+		).
 		Value(&confirm).Run()
 	if err != nil {
 		log.Fatal(err)

@@ -104,11 +104,13 @@ func CreateRegistryView(createView *api.CreateRegView) {
 			huh.NewInput().
 				Title("Access Secret").
 				Value(&createView.Credential.AccessSecret),
-			huh.NewConfirm().
+			huh.NewSelect[bool]().
 				Title("Verify Cert").
 				Value(&createView.Insecure).
-				Affirmative("yes").
-				Negative("no"),
+				Options(
+					huh.NewOption("Yes", true),
+					huh.NewOption("No", false),
+				),
 		),
 	).WithTheme(theme).Run()
 	if err != nil {

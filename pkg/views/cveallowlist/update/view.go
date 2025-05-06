@@ -40,12 +40,13 @@ func UpdateCveView(updateView *UpdateView) {
 					}
 					return nil
 				}),
-			huh.NewConfirm().
+			huh.NewSelect[bool]().
 				Title("Expires").
 				Value(&updateView.IsExpire).
-				Affirmative("Date").
-				Negative("never"),
-		),
+				Options(
+					huh.NewOption("Never", false),
+					huh.NewOption("Date", true),
+				)),
 		huh.NewGroup(
 			huh.NewInput().
 				Validate(func(str string) error {

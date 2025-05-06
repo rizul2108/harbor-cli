@@ -63,11 +63,13 @@ func UpdateRegistryView(updateView *models.Registry) {
 				EchoMode(huh.EchoModePassword).
 				Description("Replace the Access Secret to the real one").
 				Value(&updateView.Credential.AccessSecret),
-			huh.NewConfirm().
+			huh.NewSelect[bool]().
 				Title("Verify Cert").
 				Value(&updateView.Insecure).
-				Affirmative("yes").
-				Negative("no"),
+				Options(
+					huh.NewOption("No", false),
+					huh.NewOption("Yes", true),
+				),
 		),
 	).WithTheme(theme).Run()
 

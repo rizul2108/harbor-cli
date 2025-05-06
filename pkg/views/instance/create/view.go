@@ -77,16 +77,20 @@ func CreateInstanceView(createView *CreateView) {
 					err := utils.ValidateURL(str)
 					return err
 				}),
-			huh.NewConfirm().
+			huh.NewSelect[bool]().
 				Title("Enable").
 				Value(&createView.Enabled).
-				Affirmative("yes").
-				Negative("no"),
-			huh.NewConfirm().
+				Options(
+					huh.NewOption("Yes", true),
+					huh.NewOption("No", false),
+				),
+			huh.NewSelect[bool]().
 				Title("Verify Cert").
 				Value(&createView.Insecure).
-				Affirmative("yes").
-				Negative("no"),
+				Options(
+					huh.NewOption("Yes", true),
+					huh.NewOption("No", false),
+				),
 		),
 
 		huh.NewGroup(

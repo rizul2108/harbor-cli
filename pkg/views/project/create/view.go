@@ -81,11 +81,13 @@ func CreateProjectView(createView *CreateView) {
 					}
 					return nil
 				}),
-			huh.NewConfirm().
+			huh.NewSelect[bool]().
 				Title("Public").
 				Value(&createView.Public).
-				Affirmative("yes").
-				Negative("no"),
+				Options(
+					huh.NewOption("No", false),
+					huh.NewOption("Yes", true),
+				),
 			huh.NewInput().
 				Title("Storage Limit").
 				Value(&createView.StorageLimit).
@@ -100,11 +102,13 @@ func CreateProjectView(createView *CreateView) {
 					return nil
 				}),
 
-			huh.NewConfirm().
+			huh.NewSelect[bool]().
 				Title("Proxy Cache").
 				Value(&createView.ProxyCache).
-				Affirmative("yes").
-				Negative("no"),
+				Options(
+					huh.NewOption("No", false),
+					huh.NewOption("Yes", true),
+				),
 		),
 		huh.NewGroup(
 			huh.NewSelect[string]().
